@@ -55,7 +55,7 @@ export async function createInvoice(prevState:State, formData: FormData) {
     const insert_sql = `INSERT INTO invoices(customer_id, amount, status, date) VALUES('${customerId}', ${amountInCents}, '${status}', '${date}')`;
     
     try {
-        await connection.execute(insert_sql);
+        await connection.query(insert_sql);
     } catch (error) {
         console.log(error);
         return {
@@ -97,7 +97,7 @@ export async function updateInvoice(id:string, prevState:State, formData:FormDat
     const update_sql = "UPDATE invoices SET customer_id='" + customerId + "', amount=" + amountInCents.toString() + ", status='" + status + "'" + " WHERE id=" +id;
     console.log(update_sql);
     try {
-        await connection.execute(update_sql);
+        await connection.query(update_sql);
     } catch(error){
         console.log(error);
         return {message:'Database Error: Failed to Update Invoice.'};
@@ -111,7 +111,7 @@ export async function deleteInvoice(id:string){
 
     const delete_sql = "DELETE from invoices where id='" + id + "'";
     try {
-        await connection.execute(delete_sql);
+        await connection.query(delete_sql);
         revalidatePath('/dashboard/invoices');
         return {message:'Delete Invoice.'};
     } catch(error){

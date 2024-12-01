@@ -4,9 +4,9 @@ import { fetchInvoiceById, fetchCustomers } from '@/app/lib/data';
 import { notFound} from 'next/navigation';
 import { Metadata } from 'next'; 
 
-export metadata:Metadata = {
-    title:'invoice edit',
-};
+//export metadata:Metadata = {
+//    title:'invoice edit',
+//};
 
 export default async function Page(props:{params:Promise<{id:string}>}){
     const params = await props.params;

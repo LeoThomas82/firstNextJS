@@ -23,7 +23,7 @@ export async function fetchRevenue() {
 
     //const data = await sql<Revenue>`SELECT * FROM revenue`;
     //return data.rows;
-    const data = await connection.execute(`SELECT * FROM revenue`);
+    const data = await connection.query(`SELECT * FROM revenue`);
     return data[0];    // console.log('Data fetch completed after 3 seconds.');
   } catch (error) {
     console.error('Database Error:', error);
@@ -40,7 +40,7 @@ export async function fetchLatestInvoices() {
     //  ORDER BY invoices.date DESC
     //  LIMIT 5`;
 
-      const  data = await connection.execute(`
+      const  data = await connection.query(`
       SELECT invoices.amount, customers.name, customers.image_url, customers.email, invoices.id
       FROM invoices
       JOIN customers ON invoices.customer_id = customers.id
@@ -86,9 +86,9 @@ export async function fetchCardData() {
     //     FROM invoices`;
 
     /*
-    const invoiceCountPromise = await connection.execute(`SELECT COUNT(*) AS count FROM invoices`);
-    const customerCountPromise = await connection.execute(`SELECT COUNT(*) AS count FROM customers`);
-    const invoiceStatusPromise = await connection.execute(`SELECT
+    const invoiceCountPromise = await connection.query(`SELECT COUNT(*) AS count FROM invoices`);
+    const customerCountPromise = await connection.query(`SELECT COUNT(*) AS count FROM customers`);
+    const invoiceStatusPromise = await connection.query(`SELECT
          SUM(CASE WHEN status = 'paid' THEN amount ELSE 0 END) AS "paid",
          SUM(CASE WHEN status = 'pending' THEN amount ELSE 0 END) AS "pending"
          FROM invoices`);
@@ -101,9 +101,9 @@ export async function fetchCardData() {
 
       await new Promise((resolve) => setTimeout(resolve, 3000));
 
-    const invoiceCountPromise = connection.execute(`SELECT COUNT(*) AS count FROM invoices`);
-    const customerCountPromise = await connection.execute(`SELECT COUNT(*) AS count FROM customers`);
-    const invoiceStatusPromise = await connection.execute(`SELECT
+    const invoiceCountPromise = connection.query(`SELECT COUNT(*) AS count FROM invoices`);
+    const customerCountPromise = await connection.query(`SELECT COUNT(*) AS count FROM customers`);
+    const invoiceStatusPromise = await connection.query(`SELECT
       SUM(CASE WHEN status = 'paid' THEN amount ELSE 0 END) AS "paid",
       SUM(CASE WHEN status = 'pending' THEN amount ELSE 0 END) AS "pending"
       FROM invoices`);
@@ -140,7 +140,7 @@ export async function fetchFilteredInvoices(
 
   try {
     //const invoices = await sql<InvoicesTable>`
-    const data = await connection.execute(`
+    const data = await connection.query(`
       SELECT
         invoices.id,
         invoices.amount,
@@ -186,7 +186,7 @@ export async function fetchFilteredInvoices(
 export async function fetchInvoicesPages(query: string) {
   try {
     //const count = await sql`SELECT COUNT(*)
-    const count = await connection.execute(`SELECT COUNT(*) as Count
+    const count = await connection.query(`SELECT COUNT(*) as Count
     FROM invoices
     JOIN customers ON invoices.customer_id = customers.id
     WHERE
@@ -210,7 +210,7 @@ export async function fetchInvoicesPages(query: string) {
 export async function fetchInvoiceById(id: string) {
   try {
     //const data = await sql<InvoiceForm>`
-    const preData = await connection.execute(`
+    const preData = await connection.query(`
       SELECT
         invoices.id,
         invoices.customer_id,
@@ -239,7 +239,7 @@ export async function fetchInvoiceById(id: string) {
 export async function fetchCustomers() {
   try {
     //const data = await sql<CustomerField>`
-    const data = await connection.execute(`
+    const data = await connection.query(`
       SELECT
         id,
         name
@@ -258,7 +258,7 @@ export async function fetchCustomers() {
 export async function fetchFilteredCustomers(query: string) {
   try {
     //const data = await sql<CustomersTableType>`
-    const data = await connection.execute(`
+    const data = await connection.query(`
 		SELECT
 		  customers.id,
 		  customers.name,

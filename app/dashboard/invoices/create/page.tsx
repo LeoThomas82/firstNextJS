@@ -4,9 +4,9 @@ import { fetchCustomers } from '@/app/lib/data';
 
 import {Metadata} from 'next';
 
-export const metadata:Metadata = {
-    title:'Invoices create | Acme Dashboard',
-};
+//export const metadata:Metadata = {
+//    title:'Invoices create | Acme Dashboard',
+//};
 
 export default async function Page(){
     const customers = await fetchCustomers();
